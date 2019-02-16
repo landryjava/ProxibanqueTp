@@ -6,12 +6,9 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,14 +16,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.JTextComponent;
 
-public class EspaceAdministrateur extends JFrame {
+import com.objis.cameroun.proxibanque.servive.IService;
+import com.objis.cameroun.proxibanque.servive.ServiceImp;
+
+public class Acceuil extends JFrame {
 
 	/**
 	 * 
@@ -41,41 +41,39 @@ public class EspaceAdministrateur extends JFrame {
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
 	 */
-	/*public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EspaceAdministrateur frame = new EspaceAdministrateur();
+					Acceuil frame = new Acceuil();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public EspaceAdministrateur() {
-		
+	public Acceuil() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\BrandolKuete\\Pictures\\logo1.png"));
 		setBackground(new Color(0, 255, 0));
-		setTitle("Espace de l'administrateur");
+		setTitle("Espace d'authentification");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1200, 750);
+		setSize(850, 650);
 		setLocationRelativeTo(null);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionnerBoutons(), BorderLayout.CENTER);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
+		contentPane.add(blocAuthentifier(), BorderLayout.CENTER);
 	}
 	
 	private static JPanel positionner() {
@@ -131,71 +129,6 @@ public class EspaceAdministrateur extends JFrame {
 		return menuBar;
 	}
 	
-	private static JPanel positionnerBoutons() {
-		
-		JPanel panel=new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
-		
-		JButton buton0=new JButton("Créer un utilisateur");
-		buton0.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				EnregistrerUser frame = new EnregistrerUser();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton0);
-		
-		JButton buton1=new JButton("Ajouter une carte bancaire");
-		buton1.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		panel.add(buton1);
-		
-		JButton buton2= new JButton("Ajouter une agence");
-		buton2.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-			}
-		});
-		panel.add(buton2);
-		
-		JButton buton3= new JButton("Ajouter un role");
-		buton3.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AjouterRole frame = new AjouterRole();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton3);
-		
-		JButton buton4=new JButton("Modifier un role");
-		buton4.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ModifierRoleUser frame = new ModifierRoleUser();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton4);
-		
-		JButton buton5=new JButton("Modifier un utilisateur");
-		buton5.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
-			}
-		});
-		panel.add(buton5);
-		
-		return panel;	
-	}
-	
 	private static JPanel menuBaniere() {
 		
 		JPanel panel= new JPanel();
@@ -224,4 +157,76 @@ public class EspaceAdministrateur extends JFrame {
 		
 	}
 	
+	private static JPanel blocAuthentifier() {
+		JPanel panel= new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(null);
+		
+		JLabel lbl1= new JLabel("Login: ");
+		lbl1.setBounds(250, 80, 160, 30);
+		panel.add(lbl1);
+		
+		final JTextField loginTextField= new JTextField();
+		loginTextField.setBounds(300, 80, 290, 30);
+		loginTextField.setBackground(Color.WHITE);
+		panel.add(loginTextField);
+		
+		JLabel lbl2= new JLabel("Password: ");
+		lbl2.setBounds(250, 160, 160, 30);
+		panel.add(lbl2);
+		
+		final JPasswordField passwdTextField= new JPasswordField();
+		passwdTextField.setBounds(320, 160, 290, 30);
+		passwdTextField.setBackground(Color.WHITE);
+		panel.add(passwdTextField);
+		
+		JButton buton1= new JButton("Connecter");
+		buton1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String login= loginTextField.getText();
+				String passw= passwdTextField.getText();
+				
+				IService service= new ServiceImp();
+				int status= service.authentifierService(login, passw);
+				
+				if(status==1) {
+					
+					String role= service.recupererRoleService(login, passw);
+					
+					System.out.print(role);
+					if(role.equals("admin")) {
+						EspaceAdministrateur frame = new EspaceAdministrateur();
+						frame.setVisible(true);
+						
+						
+						loginTextField.setText(" ");
+						passwdTextField.setText("");
+					}else {
+						
+						EspaceConseiller frame = new EspaceConseiller();
+						frame.setVisible(true);
+					
+						loginTextField.setText(" ");
+						passwdTextField.setText("");
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Utislisateur inexistant !!!!");
+					
+					loginTextField.setText(" ");
+					passwdTextField.setText("");
+				}	
+			}
+		});
+		buton1.setBounds(290, 230, 160, 30);
+		JButton buton2= new JButton("Annuler");
+		buton2.setBounds(500, 230, 160, 30);
+		
+		panel.add(buton1);
+		panel.add(buton2);
+		
+		return panel;
+	}
 }

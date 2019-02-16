@@ -3,6 +3,12 @@ package com.objis.cameroun.proxibanque.domaine;
 public class Role {
 
 	private String libeleRole;
+	
+
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Role(String libeleRole) {
 		super();

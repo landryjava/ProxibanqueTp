@@ -1,17 +1,30 @@
 package com.objis.cameroun.proxibanque.servive;
 
+import java.security.Provider.Service;
+
+import com.objis.cameroun.proxibanque.dao.DaoImpl;
+import com.objis.cameroun.proxibanque.dao.IDao;
 import com.objis.cameroun.proxibanque.domaine.Client;
+import com.objis.cameroun.proxibanque.domaine.Role;
+import com.objis.cameroun.proxibanque.domaine.Utilisateur;
 
 public class ServiceImp implements IService{
+	
+	private IDao dao;
+	
+	public ServiceImp() {
+		
+		dao=new DaoImpl();
+	}
 
-	public void attribuerRoleService() {
-		// TODO Auto-generated method stub
+	public int ajouterRoleService(Role role) {
+		return dao.ajouterRoleDao(role);
+		
 		
 	}
 
-	public void creerUtilisteurService() {
-		// TODO Auto-generated method stub
-		
+	public int creerUtilisteurService(Utilisateur user) {
+		return dao.creerUtilisteurDao(user);
 	}
 
 	public int creerClientService(Client cli) {
@@ -19,9 +32,8 @@ public class ServiceImp implements IService{
 		return 0;
 	}
 
-	public int faireVirementCompteACompteService(long lg, String st, String str) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void faireVirementCompteACompteService(float lg, String st, String str) {
+		dao.faireVirementCompteACompteDao(lg, st, str);
 	}
 
 	public void gererPatrimoineService(long lg, long lgn, String st) {
@@ -42,6 +54,19 @@ public class ServiceImp implements IService{
 	public void simulerCreditService(long lg, String st) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int authentifierService(String login, String passwd) {
+		return dao.authentifierDao(login, passwd);
+	}
+
+	public String recupererRoleService(String login, String passwd) {
+		
+		return dao.recupererRoleDao(login, passwd);
+	}
+
+	public int modifierRoleUserService(String nom, String role) {
+		return dao.modifierRoleUserDao(nom, role);
 	}
 
 }

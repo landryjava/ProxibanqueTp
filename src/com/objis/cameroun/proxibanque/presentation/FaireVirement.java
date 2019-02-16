@@ -2,6 +2,7 @@ package com.objis.cameroun.proxibanque.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -16,16 +17,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-public class EspaceConseiller extends JFrame {
+import com.objis.cameroun.proxibanque.servive.IService;
+import com.objis.cameroun.proxibanque.servive.ServiceImp;
+
+public class FaireVirement extends JFrame {
 
 	private JPanel contentPane;
 
@@ -37,12 +39,11 @@ public class EspaceConseiller extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EspaceConseiller frame = new EspaceConseiller();
+					FaireVirement frame = new FaireVirement();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,16 +54,15 @@ public class EspaceConseiller extends JFrame {
 
 	/**
 	 * Create the frame.
-	 */ 
-	public EspaceConseiller() {
+	 */
+	public FaireVirement() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\BrandolKuete\\Pictures\\logo1.png"));
 		setBackground(new Color(0, 255, 0));
-		setTitle("Espace du conseiller");
+		setTitle("Virement de compte à compte");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1200, 750);
 		setLocationRelativeTo(null);
-		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,13 +71,10 @@ public class EspaceConseiller extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionnerBoutons(),BorderLayout.WEST);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
-		//contentPane.add(formulaire(), BorderLayout.CENTER);
-
-		JTabbedPane principal= new JTabbedPane();
-		principal.setBackground(Color.WHITE);
-		contentPane.add(principal, BorderLayout.CENTER);
+		contentPane.add(espaces(), BorderLayout.WEST);
+		contentPane.add(espaces(), BorderLayout.EAST);
+		contentPane.add(positionP1(), BorderLayout.CENTER);
 	}
 	
 	private static JPanel positionner() {
@@ -85,7 +82,6 @@ public class EspaceConseiller extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setPreferredSize(new Dimension(1131,139));
-		//panel.setBounds(100, 100, 1131, 139);
 		panel.setLayout(new BorderLayout());
 		
 		JLabel lblSystmeDeGestion = new JLabel("Proxibanque SI");
@@ -133,69 +129,6 @@ public class EspaceConseiller extends JFrame {
 		return menuBar;
 	}
 	
-	private static JPanel positionnerBoutons() {
-		
-		JPanel panel=new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
-		
-		JButton buton0=new JButton("Créer un client");
-		buton0.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Bonjour !!!!! ");
-			}
-		});
-		panel.add(buton0);
-		
-		JButton buton1=new JButton("Supprimer un client");
-		buton1.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		panel.add(buton1);
-		
-		JButton buton2= new JButton("Informations du client");
-		buton2.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-			}
-		});
-		panel.add(buton2);
-		
-		JButton buton3= new JButton("Modifier un client");
-		buton3.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
-			}
-		});
-		panel.add(buton3);
-		
-		JButton buton4=new JButton("Faire un virement");
-		buton4.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				FaireVirement frame = new FaireVirement();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton4);
-		
-		JButton buton5=new JButton("Simuler un crédit");
-		buton5.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
-			}
-		});
-		panel.add(buton5);
-		
-		return panel;	
-	}
-	
 	private static JPanel menuBaniere() {
 		
 		JPanel panel= new JPanel();
@@ -224,16 +157,141 @@ public class EspaceConseiller extends JFrame {
 		
 	}
 	
-	private static JPanel creationClient() {
+	private static JPanel espaces() {
+		
+		//ce gridLayout vide permettra  d'occuper un peu d'espace à l'Est et à l'Ouest de la page, il ne contient que de labels vides
+		
+		JPanel panel=new JPanel();
+		panel.setLayout(new GridLayout(3, 2));
+		
+		JLabel lbl1= new JLabel("                                           ");
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("                                           ");
+		panel.add(lbl2);
+		
+		JLabel lbl3= new JLabel("                                           ");
+		panel.add(lbl3);
+		
+		JLabel lbl4= new JLabel("                                           ");
+		panel.add(lbl4);
+		
+		JLabel lbl5=  new JLabel("                                          ");
+		panel.add(lbl5);
+		  
+		JLabel lbl6= new JLabel("                                           ");
+		panel.add(lbl6);
+		
+		return panel;	
+	}
+	
+	private static JPanel espaceVirement() {
 		
 		JPanel panel= new JPanel();
-		panel.setBounds(0, 0, 0, 0);
-		panel.setLayout(new FlowLayout());
+		panel.setLayout(new GridLayout(10, 2,8,12));
 		
-		JLabel lbl= new JLabel("Création d'un Client");
+		JLabel compte1Lbl= new JLabel("Entrer le numero du compte débiteur: ");
+		final JTextField compte1TextField= new JTextField();
+		compte1Lbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		compte1TextField.setFont(new Font("Verdana", Font.PLAIN, 15));
+		
+		JLabel compte2Lbl= new JLabel("Entrer le numero du compte créditaire: ");
+		final JTextField compte2TextField= new JTextField();
+		compte2Lbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		compte2TextField.setFont(new Font("Verdana", Font.PLAIN, 15));
+		
+		JLabel montantLbl= new JLabel("Entrer le montant: ");
+		final JTextField montantTextField= new JTextField();
+		montantLbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		montantTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
+		
+		JButton boutn1= new JButton("Effectuer");
+		boutn1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				float montant= Float.parseFloat(montantTextField.getText());
+				String comptDeb= compte1TextField.getText();
+				String comptCre= compte2TextField.getText();
+				
+				IService service= new ServiceImp();
+				
+				service.faireVirementCompteACompteService(montant, comptDeb, comptCre);
+				
+				compte1TextField.setText(" ");
+				compte2TextField.setText(" ");
+				montantTextField.setText(" ");
+				
+			}
+		});
+		boutn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		boutn1.setFont(new Font("Verdana", Font.BOLD, 16));
+		
+		JButton boutn2= new JButton("Annuler");
+		boutn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		boutn2.setFont(new Font("Verdana", Font.BOLD, 16));
+		
+		JLabel lbl0= new JLabel("    ");
+		panel.add(lbl0);
+		
+		JLabel lbl1= new JLabel("    ");
+		panel.add(lbl1);
+		
+		panel.add(compte1Lbl);
+		panel.add(compte1TextField);
+		panel.add(compte2Lbl);
+		panel.add(compte2TextField);
+		panel.add(montantLbl);
+		panel.add(montantTextField);
+		
+		JLabel lbl2= new JLabel("    ");
+		panel.add(lbl2);
+		
+		JLabel lbl3= new JLabel("    ");
+		panel.add(lbl3);
+		
+		panel.add(boutn1);
+		panel.add(boutn2);
+		
+		JLabel lbl4= new JLabel("    ");
+		panel.add(lbl4);
+		
+		JLabel lbl5= new JLabel("    ");
+		panel.add(lbl5);
+		
+		JLabel lbl6= new JLabel("    ");
+		panel.add(lbl6);
+		
+		JLabel lbl7= new JLabel("    ");
+		panel.add(lbl7);
+		
+		JLabel lbl8= new JLabel("    ");
+		panel.add(lbl8);
+		
+		JLabel lbl9= new JLabel("    ");
+		panel.add(lbl9);
 		
 		
 		return panel;
+	}
+	
+	private static JLabel titre() {
+		JLabel lbl= new JLabel("Virement de compte à compte");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lbl.setForeground(Color.DARK_GRAY);
+		return lbl;
+	}
+	
+	private static JPanel positionP1() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(titre(), BorderLayout.NORTH);
+		panel.add(espaceVirement(), BorderLayout.CENTER);
+		
+		return panel;
+		
 	}
 
 }

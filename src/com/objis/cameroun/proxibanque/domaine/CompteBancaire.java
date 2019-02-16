@@ -17,6 +17,15 @@ public class CompteBancaire {
 		this.solde = solde;
 	}
 
+	
+
+	public CompteBancaire() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getIdCompte() {
 		return idCompte;
 	}

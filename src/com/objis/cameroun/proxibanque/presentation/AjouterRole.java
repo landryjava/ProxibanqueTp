@@ -2,6 +2,7 @@ package com.objis.cameroun.proxibanque.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -11,7 +12,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,14 +24,13 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.JTextComponent;
 
-public class EspaceAdministrateur extends JFrame {
+import com.objis.cameroun.proxibanque.domaine.Role;
+import com.objis.cameroun.proxibanque.servive.IService;
+import com.objis.cameroun.proxibanque.servive.ServiceImp;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class AjouterRole extends JFrame {
+
 	private JPanel contentPane;
 
 	/**
@@ -41,30 +40,29 @@ public class EspaceAdministrateur extends JFrame {
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
 	 */
-	/*public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EspaceAdministrateur frame = new EspaceAdministrateur();
+					AjouterRole frame = new AjouterRole();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public EspaceAdministrateur() {
+	public AjouterRole() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\BrandolKuete\\Pictures\\logo1.png"));
 		setBackground(new Color(0, 255, 0));
-		setTitle("Espace de l'administrateur");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Créer un role");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1200, 750);
 		setLocationRelativeTo(null);
 		
@@ -72,10 +70,41 @@ public class EspaceAdministrateur extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout());
 		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionnerBoutons(), BorderLayout.CENTER);
+		contentPane.add(positionP1(), BorderLayout.CENTER);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
+		contentPane.add(espaces(), BorderLayout.WEST);
+		contentPane.add(espaces(), BorderLayout.EAST);
+	}
+	
+	private static JPanel menuBaniere() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(positionnerLeMenuBar(), BorderLayout.NORTH);
+		panel.add(positionner(), BorderLayout.SOUTH);
+		
+		return panel;
+		
+	}
+	
+	private static JPanel positionnerPied(){
+		
+		JPanel panel= new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(new FlowLayout());
+		
+		JLabel lbl1= new JLabel("Copyright 2019");
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("  Tous droits reservés");
+		panel.add(lbl2);
+		
+		return panel;
+		
 	}
 	
 	private static JPanel positionner() {
@@ -131,97 +160,90 @@ public class EspaceAdministrateur extends JFrame {
 		return menuBar;
 	}
 	
-	private static JPanel positionnerBoutons() {
+ private static JPanel espaces() {
 		
 		JPanel panel=new JPanel();
 		panel.setLayout(new GridLayout(3, 2));
 		
-		JButton buton0=new JButton("Créer un utilisateur");
-		buton0.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				EnregistrerUser frame = new EnregistrerUser();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton0);
+		JLabel lbl1= new JLabel("                                                             ");
+		panel.add(lbl1);
 		
-		JButton buton1=new JButton("Ajouter une carte bancaire");
-		buton1.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		panel.add(buton1);
+		JLabel lbl2= new JLabel("                                                             ");
+		panel.add(lbl2);
 		
-		JButton buton2= new JButton("Ajouter une agence");
-		buton2.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-			}
-		});
-		panel.add(buton2);
+		JLabel lbl3= new JLabel("                                                             ");
+		panel.add(lbl3);
 		
-		JButton buton3= new JButton("Ajouter un role");
-		buton3.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AjouterRole frame = new AjouterRole();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton3);
+		JLabel lbl4= new JLabel("                                                             ");
+		panel.add(lbl4);
 		
-		JButton buton4=new JButton("Modifier un role");
-		buton4.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ModifierRoleUser frame = new ModifierRoleUser();
-				frame.setVisible(true);
-			}
-		});
-		panel.add(buton4);
-		
-		JButton buton5=new JButton("Modifier un utilisateur");
-		buton5.setFont(new Font("Verdana", Font.BOLD, 14));
-		buton5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
-			}
-		});
-		panel.add(buton5);
+		JLabel lbl5=  new JLabel("                                                            ");
+		panel.add(lbl5);
+		  
+		JLabel lbl6= new JLabel("                                                             ");
+		panel.add(lbl6);
 		
 		return panel;	
 	}
 	
-	private static JPanel menuBaniere() {
+	private static JLabel titre() {
+		JLabel lbl= new JLabel("Création d'un nouveau role ");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		lbl.setForeground(Color.DARK_GRAY);
+		return lbl;
+	}
+	
+	private static JPanel positionP1() {
 		
 		JPanel panel= new JPanel();
 		panel.setLayout(new BorderLayout());
 		
-		panel.add(positionnerLeMenuBar(), BorderLayout.NORTH);
-		panel.add(positionner(), BorderLayout.SOUTH);
+		panel.add(titre(), BorderLayout.NORTH);
+		panel.add(formulaire(), BorderLayout.CENTER);
 		
 		return panel;
 		
 	}
-	
-	private static JPanel positionnerPied(){
-		
+
+	private static JPanel formulaire() {
 		JPanel panel= new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setLayout(new FlowLayout());
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER,30,30));
 		
-		JLabel lbl1= new JLabel("Copyright 2019");
-		panel.add(lbl1);
+		JLabel libeleLbl= new JLabel("Entrer le role: ");
+		libeleLbl.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		final JTextField libeleTextField= new JTextField();
+		libeleTextField.setPreferredSize(new Dimension(200, 30));
+		libeleTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		
-		JLabel lbl2= new JLabel("Tous droits reservés");
-		panel.add(lbl2);
+		JButton bouton= new JButton("Enregistrer");
+		bouton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				String libele= libeleTextField.getText();
+				
+				Role role= new Role();
+				role.setLibeleRole(libele);
+				IService service= new ServiceImp();
+				 
+				int status= service.ajouterRoleService(role);
+				
+				 if(status==1) {
+					 JOptionPane.showMessageDialog(null, "Ajout réussi !!! ");
+					 libeleTextField.setText(" ");
+				 }else {
+					 JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de l'ajout!!! ");
+					 libeleTextField.setText(" ");
+				 }
+			}
+		});
+		bouton.setFont(new Font("Verdana", Font.BOLD, 18));
+		bouton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		panel.add(libeleLbl);
+		panel.add(libeleTextField);
+		panel.add(bouton);
 		
 		return panel;
-		
 	}
-	
+
 }
