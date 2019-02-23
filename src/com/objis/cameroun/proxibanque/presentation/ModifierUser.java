@@ -9,29 +9,31 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import com.objis.cameroun.proxibanque.domaine.Role;
+import com.objis.cameroun.proxibanque.domaine.Utilisateur;
+import com.objis.cameroun.proxibanque.domaine.UtilisateurModel;
 import com.objis.cameroun.proxibanque.servive.IService;
 import com.objis.cameroun.proxibanque.servive.ServiceImp;
 
-public class AjouterRole extends JFrame {
+public class ModifierUser extends JFrame {
 
 	private JPanel contentPane;
+	private static JTable table;
+	private static  UtilisateurModel utilisateurModel;
 
 	/**
 	 * Launch the application.
@@ -41,11 +43,12 @@ public class AjouterRole extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AjouterRole frame = new AjouterRole();
+					ModifierUser frame = new ModifierUser();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,54 +60,25 @@ public class AjouterRole extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AjouterRole() {
-		
+	public ModifierUser() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\BrandolKuete\\Pictures\\logo1.png"));
 		setBackground(new Color(0, 255, 0));
-		setTitle("Créer un role");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("Modifier un utilisateur");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200, 750);
 		setLocationRelativeTo(null);
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
 		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionP1(), BorderLayout.CENTER);
+		contentPane.add(positionCentrale(), BorderLayout.CENTER);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
-		contentPane.add(espaces(), BorderLayout.WEST);
 		contentPane.add(espaces(), BorderLayout.EAST);
-	}
-	
-	private static JPanel menuBaniere() {
-		
-		JPanel panel= new JPanel();
-		panel.setLayout(new BorderLayout());
-		
-		panel.add(positionnerLeMenuBar(), BorderLayout.NORTH);
-		panel.add(positionner(), BorderLayout.SOUTH);
-		
-		return panel;
-		
-	}
-	
-	private static JPanel positionnerPied(){
-		
-		JPanel panel= new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setLayout(new FlowLayout());
-		
-		JLabel lbl1= new JLabel("Copyright 2019");
-		panel.add(lbl1);
-		
-		JLabel lbl2= new JLabel("  Tous droits reservés");
-		panel.add(lbl2);
-		
-		return panel;
-		
+		contentPane.add(menuLeft(), BorderLayout.WEST);
 	}
 	
 	private static JPanel positionner() {
@@ -112,7 +86,6 @@ public class AjouterRole extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setPreferredSize(new Dimension(1131,139));
-		//panel.setBounds(100, 100, 1131, 139);
 		panel.setLayout(new BorderLayout());
 		
 		JLabel lblSystmeDeGestion = new JLabel("Proxibanque SI");
@@ -160,89 +133,127 @@ public class AjouterRole extends JFrame {
 		return menuBar;
 	}
 	
- private static JPanel espaces() {
+	private static JPanel menuBaniere() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(positionnerLeMenuBar(), BorderLayout.NORTH);
+		panel.add(positionner(), BorderLayout.SOUTH);
+		
+		return panel;
+		
+	}
+	
+	private static JPanel positionnerPied(){
+		
+		JPanel panel= new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setLayout(new FlowLayout());
+		
+		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("  Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		panel.add(lbl2);
+		
+		return panel;
+		
+	}
+	
+	private static JPanel espaces() {
+		//ce gridLayout vide permettra  d'occuper un peu d'espace à l'Est et à l'Ouest de la page, il ne contient que de labels vides
 		
 		JPanel panel=new JPanel();
 		panel.setLayout(new GridLayout(3, 2));
 		
-		JLabel lbl1= new JLabel("                                                             ");
+		JLabel lbl1= new JLabel("                   ");
 		panel.add(lbl1);
 		
-		JLabel lbl2= new JLabel("                                                             ");
+		JLabel lbl2= new JLabel("                   ");
 		panel.add(lbl2);
 		
-		JLabel lbl3= new JLabel("                                                             ");
+		JLabel lbl3= new JLabel("                   ");
 		panel.add(lbl3);
 		
-		JLabel lbl4= new JLabel("                                                             ");
+		JLabel lbl4= new JLabel("                   ");
 		panel.add(lbl4);
 		
-		JLabel lbl5=  new JLabel("                                                            ");
+		JLabel lbl5=  new JLabel("                  ");
 		panel.add(lbl5);
 		  
-		JLabel lbl6= new JLabel("                                                             ");
+		JLabel lbl6= new JLabel("                   ");
 		panel.add(lbl6);
 		
 		return panel;	
 	}
 	
 	private static JLabel titre() {
-		JLabel lbl= new JLabel("          Création d'un nouveau role ");
-		lbl.setFont(new Font("Times New Roman", Font.BOLD, 28));
+		JLabel lbl= new JLabel("                           Modification d'utilisateur                ");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		lbl.setForeground(Color.DARK_GRAY);
 		return lbl;
 	}
 	
-	private static JPanel positionP1() {
+	
+	private static JPanel positionCentrale() {
 		
 		JPanel panel= new JPanel();
 		panel.setLayout(new BorderLayout());
 		
 		panel.add(titre(), BorderLayout.NORTH);
-		panel.add(formulaire(), BorderLayout.CENTER);
+		panel.add(listeUtilisateurs(), BorderLayout.CENTER);
 		
 		return panel;
 		
 	}
-
-	private static JPanel formulaire() {
+	
+	private static JPanel listeUtilisateurs() {
+		
 		JPanel panel= new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER,30,30));
+		panel.setLayout(new BorderLayout());
 		
-		JLabel libeleLbl= new JLabel("Entrer le role: ");
-		libeleLbl.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		final JTextField libeleTextField= new JTextField();
-		libeleTextField.setPreferredSize(new Dimension(200, 30));
-		libeleTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
+		IService service= new ServiceImp();
 		
-		JButton bouton= new JButton("Enregistrer");
-		bouton.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-				String libele= libeleTextField.getText();
-				
-				Role role= new Role();
-				role.setLibeleRole(libele);
-				IService service= new ServiceImp();
-				 
-				int status= service.ajouterRoleService(role);
-				
-				 if(status==1) {
-					 JOptionPane.showMessageDialog(null, "Ajout réussi !!! ");
-					 libeleTextField.setText(" ");
-				 }else {
-					 JOptionPane.showMessageDialog(null, "Une erreur est survenue lors de l'ajout!!! ");
-					 libeleTextField.setText(" ");
-				 }
-			}
-		});
-		bouton.setFont(new Font("Verdana", Font.BOLD, 18));
-		bouton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		bouton.setFocusable(false);
+		List<Utilisateur> maListe;
 		
-		panel.add(libeleLbl);
-		panel.add(libeleTextField);
-		panel.add(bouton);
+		maListe= service.listeUtilisateursService();
+		
+		utilisateurModel= new UtilisateurModel(maListe);
+		
+		table= new JTable(utilisateurModel);
+		
+		panel.add(new JScrollPane(table), BorderLayout.CENTER);
+		
+		return panel;
+	}
+	
+	private static JPanel menu() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(1,2,5,5));
+		
+		JButton btnSuppr= new JButton("Supprimer");
+		btnSuppr.setFocusable(false);
+		btnSuppr.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panel.add(btnSuppr);
+		
+		JButton btnModif= new JButton("Modifier");
+		btnModif.setFocusable(false);
+		btnModif.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panel.add(btnModif);
+		
+		return panel;
+	
+	}
+	
+	private static JPanel menuLeft() {
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(menu(), BorderLayout.SOUTH);
 		
 		return panel;
 	}

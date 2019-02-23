@@ -108,9 +108,11 @@ public class EnregistrerUser extends JFrame {
 		panel.setLayout(new FlowLayout());
 		
 		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
 		JLabel lbl2= new JLabel("  Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
 		
 		return panel;
@@ -261,6 +263,7 @@ public class EnregistrerUser extends JFrame {
 		});
 		buton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		buton.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton.setFocusable(false);
 		
 		JLabel lbl3= new JLabel("    ");
 		panel.add(lbl3);
@@ -336,8 +339,19 @@ public class EnregistrerUser extends JFrame {
 		return panel;	
 	}
 	
+	private static JPanel menu() {
+		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(2,1,15,15));
+		
+		JLabel lbl= new JLabel("  ");
+		panel.add(lbl);
+		panel.add(titre());
+		
+		return panel;
+	}
+	
 	private static JLabel titre() {
-		JLabel lbl= new JLabel("Création d'un utilisateur");
+		JLabel lbl= new JLabel("             Création d'un utilisateur");
 		lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lbl.setForeground(Color.DARK_GRAY);
 		return lbl;
@@ -348,7 +362,7 @@ public class EnregistrerUser extends JFrame {
 		JPanel panel= new JPanel();
 		panel.setLayout(new BorderLayout());
 		
-		panel.add(titre(), BorderLayout.NORTH);
+		panel.add(menu(), BorderLayout.NORTH);
 		panel.add(formulaire(), BorderLayout.CENTER);
 		
 		return panel;

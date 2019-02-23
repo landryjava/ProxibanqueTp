@@ -267,4 +267,36 @@ public class DaoImpl implements IDao {
 		
 	}
 
+	public List<Utilisateur> listeUtilisateursDao() {
+		
+		List<Utilisateur> maListe= new ArrayList<Utilisateur>();
+		try {
+			Connection cn= ConnectionMysqlDB.getInstance();
+			
+			String sql= "SELECT * FROM `useraccount`";
+			
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				Utilisateur user= new Utilisateur();
+				
+				user.setIdPers(rs.getString("iduse"));
+				user.setLogin(rs.getString("login"));
+				user.setPassword(rs.getString("mdp"));
+				user.setRole(rs.getString("role"));
+				user.setNomPers(rs.getString("nomuser"));
+				user.setPrenomPers(rs.getString("prenomuser"));
+				user.setEmail(rs.getString("emailuser"));
+				user.setTelephonePers(rs.getString("teluser"));
+				
+				maListe.add(user);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return maListe;
+	}
+
 }

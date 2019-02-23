@@ -1,6 +1,7 @@
 package com.objis.cameroun.proxibanque.servive;
 
 import java.security.Provider.Service;
+import java.util.List;
 
 import com.objis.cameroun.proxibanque.dao.DaoImpl;
 import com.objis.cameroun.proxibanque.dao.IDao;
@@ -67,6 +68,10 @@ public class ServiceImp implements IService{
 
 	public int modifierRoleUserService(String nom, String role) {
 		return dao.modifierRoleUserDao(nom, role);
+	}
+
+	public List<Utilisateur> listeUtilisateursService() {
+		return dao.listeUtilisateursDao();
 	}
 
 }

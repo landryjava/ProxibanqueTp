@@ -2,6 +2,7 @@ package com.objis.cameroun.proxibanque.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -71,13 +72,10 @@ public class EspaceConseiller extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionnerBoutons(),BorderLayout.WEST);
+		contentPane.add(positionCentrale(),BorderLayout.CENTER);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
-		//contentPane.add(formulaire(), BorderLayout.CENTER);
-
-		JTabbedPane principal= new JTabbedPane();
-		principal.setBackground(Color.WHITE);
-		contentPane.add(principal, BorderLayout.CENTER);
+		contentPane.add(espaces(), BorderLayout.WEST);
+		contentPane.add(espaces(), BorderLayout.EAST);
 	}
 	
 	private static JPanel positionner() {
@@ -94,8 +92,28 @@ public class EspaceConseiller extends JFrame {
 		lblSystmeDeGestion.setFont(new Font("Verdana", Font.BOLD, 45));
 		panel.add(lblSystmeDeGestion, BorderLayout.CENTER);
 		
-		return panel;
+		JPanel panel1= new JPanel();
+		panel1.setLayout(new BorderLayout());
+	
+		JButton bouton= new JButton("Deconnexion");
+		bouton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//System.exit(1);
+				Acceuil frame = new Acceuil();
+				frame.setVisible(true);
+			}
+		});
+		bouton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		bouton.setFont(new Font("Verdana", Font.PLAIN, 14));
+		bouton.setFocusable(false);
 		
+		panel1.add(bouton, BorderLayout.EAST);
+		
+		panel.add(panel1, BorderLayout.SOUTH);
+		
+		return panel;
 	}
 	
 	private static JMenuBar positionnerLeMenuBar() {
@@ -136,7 +154,13 @@ public class EspaceConseiller extends JFrame {
 	private static JPanel positionnerBoutons() {
 		
 		JPanel panel=new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
+		panel.setLayout(new GridLayout(5,2,15,15));
+		
+		JLabel lbl0= new JLabel("    ");
+		panel.add(lbl0);
+		
+		JLabel lbl3= new JLabel("    ");
+		panel.add(lbl3);
 		
 		JButton buton0=new JButton("Créer un client");
 		buton0.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -145,6 +169,9 @@ public class EspaceConseiller extends JFrame {
 				JOptionPane.showMessageDialog(null, "Bonjour !!!!! ");
 			}
 		});
+		buton0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton0.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton0.setFocusable(false);
 		panel.add(buton0);
 		
 		JButton buton1=new JButton("Supprimer un client");
@@ -154,6 +181,9 @@ public class EspaceConseiller extends JFrame {
 				
 			}
 		});
+		buton1.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton1.setFocusable(false);
 		panel.add(buton1);
 		
 		JButton buton2= new JButton("Informations du client");
@@ -163,6 +193,9 @@ public class EspaceConseiller extends JFrame {
 			
 			}
 		});
+		buton2.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton2.setFocusable(false);
 		panel.add(buton2);
 		
 		JButton buton3= new JButton("Modifier un client");
@@ -172,6 +205,9 @@ public class EspaceConseiller extends JFrame {
 	
 			}
 		});
+		buton3.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton3.setFocusable(false);
 		panel.add(buton3);
 		
 		JButton buton4=new JButton("Faire un virement");
@@ -182,6 +218,9 @@ public class EspaceConseiller extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+		buton4.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton4.setFocusable(false);
 		panel.add(buton4);
 		
 		JButton buton5=new JButton("Simuler un crédit");
@@ -191,7 +230,16 @@ public class EspaceConseiller extends JFrame {
 	
 			}
 		});
+		buton5.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton5.setFocusable(false);
 		panel.add(buton5);
+		
+		JLabel lbl4= new JLabel("    ");
+		panel.add(lbl4);
+		
+		JLabel lbl5= new JLabel("    ");
+		panel.add(lbl5);
 		
 		return panel;	
 	}
@@ -215,25 +263,71 @@ public class EspaceConseiller extends JFrame {
 		panel.setLayout(new FlowLayout());
 		
 		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
-		JLabel lbl2= new JLabel("Tous droits reservés");
+		JLabel lbl2= new JLabel("   Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
 		
 		return panel;
 		
 	}
 	
-	private static JPanel creationClient() {
+	private static JPanel espaces() {
+		//ce gridLayout vide permettra  d'occuper un peu d'espace à l'Est et à l'Ouest de la page, il ne contient que de labels vides
 		
+		JPanel panel=new JPanel();
+		panel.setLayout(new GridLayout(3, 2));
+		
+		JLabel lbl1= new JLabel("                   ");
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("                   ");
+		panel.add(lbl2);
+		
+		JLabel lbl3= new JLabel("                   ");
+		panel.add(lbl3);
+		
+		JLabel lbl4= new JLabel("                   ");
+		panel.add(lbl4);
+		
+		JLabel lbl5=  new JLabel("                  ");
+		panel.add(lbl5);
+		  
+		JLabel lbl6= new JLabel("                   ");
+		panel.add(lbl6);
+		
+		return panel;	
+	}
+	
+	private static JPanel menu() {
 		JPanel panel= new JPanel();
-		panel.setBounds(0, 0, 0, 0);
-		panel.setLayout(new FlowLayout());
+		panel.setLayout(new GridLayout(2,1,15,15));
 		
-		JLabel lbl= new JLabel("Création d'un Client");
-		
+		JLabel lbl= new JLabel("  ");
+		panel.add(lbl);
+		panel.add(titre());
 		
 		return panel;
 	}
-
+	
+	private static JLabel titre() {
+		JLabel lbl= new JLabel("                                Menu Principal                ");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		lbl.setForeground(Color.DARK_GRAY);
+		return lbl;
+	}
+	
+	private static JPanel positionCentrale() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(menu(), BorderLayout.NORTH);
+		panel.add(positionnerBoutons(), BorderLayout.CENTER);
+		
+		return panel;
+		
+	}
 }

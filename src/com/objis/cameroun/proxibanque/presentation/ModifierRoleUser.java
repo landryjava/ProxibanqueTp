@@ -253,6 +253,7 @@ private static JPanel menuBaniere() {
 		});
 		bouton.setFont(new Font("Verdana", Font.BOLD, 18));
 		bouton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		bouton.setFocusable(false);
 		
 		JLabel lbl0= new JLabel("                                                             ");
 		panel.add(lbl0);

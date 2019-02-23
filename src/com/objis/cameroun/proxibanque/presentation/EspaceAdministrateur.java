@@ -2,6 +2,7 @@ package com.objis.cameroun.proxibanque.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -41,7 +42,7 @@ public class EspaceAdministrateur extends JFrame {
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
 	 */
-	/*public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
 		UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 		EventQueue.invokeLater(new Runnable() {
@@ -54,7 +55,7 @@ public class EspaceAdministrateur extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
@@ -74,8 +75,10 @@ public class EspaceAdministrateur extends JFrame {
 		setContentPane(contentPane);
 		
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
-		contentPane.add(positionnerBoutons(), BorderLayout.CENTER);
+		contentPane.add(positionCentrale(), BorderLayout.CENTER);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
+		contentPane.add(espaces(), BorderLayout.WEST);
+		contentPane.add(espaces(), BorderLayout.EAST);
 	}
 	
 	private static JPanel positionner() {
@@ -83,7 +86,6 @@ public class EspaceAdministrateur extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setPreferredSize(new Dimension(1131,139));
-		//panel.setBounds(100, 100, 1131, 139);
 		panel.setLayout(new BorderLayout());
 		
 		JLabel lblSystmeDeGestion = new JLabel("Proxibanque SI");
@@ -134,7 +136,13 @@ public class EspaceAdministrateur extends JFrame {
 	private static JPanel positionnerBoutons() {
 		
 		JPanel panel=new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
+		panel.setLayout(new GridLayout(5,2,15,15));
+		
+		JLabel lbl0= new JLabel("    ");
+		panel.add(lbl0);
+		
+		JLabel lbl3= new JLabel("    ");
+		panel.add(lbl3);
 		
 		JButton buton0=new JButton("Créer un utilisateur");
 		buton0.setFont(new Font("Verdana", Font.BOLD, 14));
@@ -144,6 +152,9 @@ public class EspaceAdministrateur extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+		buton0.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton0.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton0.setFocusable(false);
 		panel.add(buton0);
 		
 		JButton buton1=new JButton("Ajouter une carte bancaire");
@@ -153,6 +164,9 @@ public class EspaceAdministrateur extends JFrame {
 				
 			}
 		});
+		buton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton1.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton1.setFocusable(false);
 		panel.add(buton1);
 		
 		JButton buton2= new JButton("Ajouter une agence");
@@ -162,6 +176,9 @@ public class EspaceAdministrateur extends JFrame {
 			
 			}
 		});
+		buton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton2.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton2.setFocusable(false);
 		panel.add(buton2);
 		
 		JButton buton3= new JButton("Ajouter un role");
@@ -172,6 +189,9 @@ public class EspaceAdministrateur extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+		buton3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton3.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton3.setFocusable(false);
 		panel.add(buton3);
 		
 		JButton buton4=new JButton("Modifier un role");
@@ -182,15 +202,24 @@ public class EspaceAdministrateur extends JFrame {
 				frame.setVisible(true);
 			}
 		});
+		buton4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton4.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton4.setFocusable(false);
 		panel.add(buton4);
 		
 		JButton buton5=new JButton("Modifier un utilisateur");
 		buton5.setFont(new Font("Verdana", Font.BOLD, 14));
 		buton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				ModifierUser frame = new ModifierUser();
+				frame.setVisible(true);
 	
 			}
 		});
+		buton5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton5.setFont(new Font("Verdana", Font.BOLD, 16));
+		buton5.setFocusable(false);
 		panel.add(buton5);
 		
 		return panel;	
@@ -215,10 +244,69 @@ public class EspaceAdministrateur extends JFrame {
 		panel.setLayout(new FlowLayout());
 		
 		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
-		JLabel lbl2= new JLabel("Tous droits reservés");
+		JLabel lbl2= new JLabel("  Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
+		
+		return panel;
+		
+	}
+	
+	private static JPanel espaces() {
+		//ce gridLayout vide permettra  d'occuper un peu d'espace à l'Est et à l'Ouest de la page, il ne contient que de labels vides
+		
+		JPanel panel=new JPanel();
+		panel.setLayout(new GridLayout(3, 2));
+		
+		JLabel lbl1= new JLabel("                   ");
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("                   ");
+		panel.add(lbl2);
+		
+		JLabel lbl3= new JLabel("                   ");
+		panel.add(lbl3);
+		
+		JLabel lbl4= new JLabel("                   ");
+		panel.add(lbl4);
+		
+		JLabel lbl5=  new JLabel("                  ");
+		panel.add(lbl5);
+		  
+		JLabel lbl6= new JLabel("                   ");
+		panel.add(lbl6);
+		
+		return panel;	
+	}
+	
+	private static JLabel titre() {
+		JLabel lbl= new JLabel("                                Menu Principal                ");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		lbl.setForeground(Color.DARK_GRAY);
+		return lbl;
+	}
+	
+	private static JPanel menu() {
+		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(2,1,15,15));
+		
+		JLabel lbl= new JLabel("  ");
+		panel.add(lbl);
+		panel.add(titre());
+		
+		return panel;
+	}
+	
+	private static JPanel positionCentrale() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(menu(), BorderLayout.NORTH);
+		panel.add(positionnerBoutons(), BorderLayout.CENTER);
 		
 		return panel;
 		

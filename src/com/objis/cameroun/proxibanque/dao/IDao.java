@@ -1,5 +1,7 @@
 package com.objis.cameroun.proxibanque.dao;
 
+import java.util.List;
+
 import com.objis.cameroun.proxibanque.domaine.Client;
 import com.objis.cameroun.proxibanque.domaine.Role;
 import com.objis.cameroun.proxibanque.domaine.Utilisateur;
@@ -10,6 +12,7 @@ public interface IDao {
 	
 	public int ajouterRoleDao(Role role);
 	public int creerUtilisteurDao(Utilisateur user);
+	public List<Utilisateur> listeUtilisateursDao();
 	
 	// Methode pour le Conseiller
 	public int creerClientDao(Client cli);

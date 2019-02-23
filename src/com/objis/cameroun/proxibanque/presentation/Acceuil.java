@@ -2,10 +2,12 @@ package com.objis.cameroun.proxibanque.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +75,9 @@ public class Acceuil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(menuBaniere(),BorderLayout.NORTH);
 		contentPane.add(positionnerPied(), BorderLayout.SOUTH);
-		contentPane.add(blocAuthentifier(), BorderLayout.CENTER);
+		contentPane.add(positionCentrale(), BorderLayout.CENTER);
+		contentPane.add(espaces(), BorderLayout.WEST);
+		contentPane.add(espaces(), BorderLayout.EAST);
 	}
 	
 	private static JPanel positionner() {
@@ -81,7 +85,6 @@ public class Acceuil extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setPreferredSize(new Dimension(1131,139));
-		//panel.setBounds(100, 100, 1131, 139);
 		panel.setLayout(new BorderLayout());
 		
 		JLabel lblSystmeDeGestion = new JLabel("Proxibanque SI");
@@ -148,36 +151,46 @@ public class Acceuil extends JFrame {
 		panel.setLayout(new FlowLayout());
 		
 		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
-		JLabel lbl2= new JLabel("Tous droits reservés");
+		JLabel lbl2= new JLabel("  Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
 		
 		return panel;
 		
 	}
 	
-	private static JPanel blocAuthentifier() {
+	private static JPanel blocAuthentification() {
+		
 		JPanel panel= new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setLayout(null);
+		panel.setLayout(new GridLayout(8,2,15,15));
+		
+		JLabel lbl0= new JLabel("    ");
+		panel.add(lbl0);
+		
+		JLabel lbl3= new JLabel("    ");
+		panel.add(lbl3);
 		
 		JLabel lbl1= new JLabel("Login: ");
 		lbl1.setBounds(250, 80, 160, 30);
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
 		final JTextField loginTextField= new JTextField();
 		loginTextField.setBounds(300, 80, 290, 30);
-		loginTextField.setBackground(Color.WHITE);
+		loginTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		panel.add(loginTextField);
 		
 		JLabel lbl2= new JLabel("Password: ");
 		lbl2.setBounds(250, 160, 160, 30);
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
 		
 		final JPasswordField passwdTextField= new JPasswordField();
 		passwdTextField.setBounds(320, 160, 290, 30);
-		passwdTextField.setBackground(Color.WHITE);
+		passwdTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		panel.add(passwdTextField);
 		
 		JButton buton1= new JButton("Connecter");
@@ -221,12 +234,98 @@ public class Acceuil extends JFrame {
 			}
 		});
 		buton1.setBounds(290, 230, 160, 30);
+		buton1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton1.setFont(new Font("Verdana", Font.BOLD, 16));
+		
 		JButton buton2= new JButton("Annuler");
+		buton2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buton2.setFont(new Font("Verdana", Font.BOLD, 16));
 		buton2.setBounds(500, 230, 160, 30);
 		
 		panel.add(buton1);
 		panel.add(buton2);
 		
+		JLabel lbl4= new JLabel("    ");
+		panel.add(lbl4);
+		
+		JLabel lbl5= new JLabel("    ");
+		panel.add(lbl5);
+		
+		JLabel lbl6= new JLabel("    ");
+		panel.add(lbl6);
+		
+		JLabel lbl7= new JLabel("    ");
+		panel.add(lbl7);
+		
+		JLabel lbl8= new JLabel("    ");
+		panel.add(lbl8);
+		
+		JLabel lbl9= new JLabel("    ");
+		panel.add(lbl9);
+		
+		JLabel lbl= new JLabel("    ");
+		panel.add(lbl);
+		
+		JLabel lb= new JLabel("    ");
+		panel.add(lb);
+		
 		return panel;
+	}
+	
+	private static JPanel espaces() {
+		//ce gridLayout vide permettra  d'occuper un peu d'espace à l'Est et à l'Ouest de la page, il ne contient que de labels vides
+		
+		JPanel panel=new JPanel();
+		panel.setLayout(new GridLayout(3, 2));
+		
+		JLabel lbl1= new JLabel("                   ");
+		panel.add(lbl1);
+		
+		JLabel lbl2= new JLabel("                   ");
+		panel.add(lbl2);
+		
+		JLabel lbl3= new JLabel("                   ");
+		panel.add(lbl3);
+		
+		JLabel lbl4= new JLabel("                   ");
+		panel.add(lbl4);
+		
+		JLabel lbl5=  new JLabel("                  ");
+		panel.add(lbl5);
+		  
+		JLabel lbl6= new JLabel("                   ");
+		panel.add(lbl6);
+		
+		return panel;	
+	}
+	
+	private static JPanel menu() {
+		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(2,1,15,15));
+		
+		JLabel lbl= new JLabel("  ");
+		panel.add(lbl);
+		panel.add(titre());
+		
+		return panel;
+	}
+	
+	private static JLabel titre() {
+		JLabel lbl= new JLabel("                            Connexion ");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lbl.setForeground(Color.DARK_GRAY);
+		return lbl;
+	}
+	
+	private static JPanel positionCentrale() {
+		
+		JPanel panel= new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		panel.add(menu(), BorderLayout.NORTH);
+		panel.add(blocAuthentification(), BorderLayout.CENTER);
+		
+		return panel;
+		
 	}
 }

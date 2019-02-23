@@ -59,7 +59,7 @@ public class FaireVirement extends JFrame {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\BrandolKuete\\Pictures\\logo1.png"));
 		setBackground(new Color(0, 255, 0));
-		setTitle("Virement de compte à compte");
+		setTitle("          Virement de compte à compte");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1200, 750);
 		setLocationRelativeTo(null);
@@ -148,9 +148,11 @@ public class FaireVirement extends JFrame {
 		panel.setLayout(new FlowLayout());
 		
 		JLabel lbl1= new JLabel("Copyright 2019");
+		lbl1.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl1);
 		
-		JLabel lbl2= new JLabel("Tous droits reservés");
+		JLabel lbl2= new JLabel("       Tous droits reservés");
+		lbl2.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		panel.add(lbl2);
 		
 		return panel;
@@ -192,17 +194,17 @@ public class FaireVirement extends JFrame {
 		
 		JLabel compte1Lbl= new JLabel("Entrer le numero du compte débiteur: ");
 		final JTextField compte1TextField= new JTextField();
-		compte1Lbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		compte1Lbl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		compte1TextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		
 		JLabel compte2Lbl= new JLabel("Entrer le numero du compte créditaire: ");
 		final JTextField compte2TextField= new JTextField();
-		compte2Lbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		compte2Lbl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		compte2TextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		
 		JLabel montantLbl= new JLabel("Entrer le montant: ");
 		final JTextField montantTextField= new JTextField();
-		montantLbl.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		montantLbl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		montantTextField.setFont(new Font("Verdana", Font.PLAIN, 15));
 		
 		JButton boutn1= new JButton("Effectuer");
@@ -226,10 +228,12 @@ public class FaireVirement extends JFrame {
 		});
 		boutn1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		boutn1.setFont(new Font("Verdana", Font.BOLD, 16));
+		boutn1.setFocusable(false);
 		
 		JButton boutn2= new JButton("Annuler");
 		boutn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		boutn2.setFont(new Font("Verdana", Font.BOLD, 16));
+		boutn2.setFocusable(false);
 		
 		JLabel lbl0= new JLabel("    ");
 		panel.add(lbl0);
@@ -275,9 +279,20 @@ public class FaireVirement extends JFrame {
 		return panel;
 	}
 	
+	private static JPanel menu() {
+		JPanel panel= new JPanel();
+		panel.setLayout(new GridLayout(2,1,15,15));
+		
+		JLabel lbl= new JLabel("  ");
+		panel.add(lbl);
+		panel.add(titre());
+		
+		return panel;
+	}
+	
 	private static JLabel titre() {
-		JLabel lbl= new JLabel("Virement de compte à compte");
-		lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		JLabel lbl= new JLabel("              Virement de compte à compte");
+		lbl.setFont(new Font("Times New Roman", Font.BOLD, 35));
 		lbl.setForeground(Color.DARK_GRAY);
 		return lbl;
 	}
@@ -287,7 +302,7 @@ public class FaireVirement extends JFrame {
 		JPanel panel= new JPanel();
 		panel.setLayout(new BorderLayout());
 		
-		panel.add(titre(), BorderLayout.NORTH);
+		panel.add(menu(), BorderLayout.NORTH);
 		panel.add(espaceVirement(), BorderLayout.CENTER);
 		
 		return panel;

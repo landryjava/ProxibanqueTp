@@ -1,5 +1,7 @@
 package com.objis.cameroun.proxibanque.servive;
 
+import java.util.List;
+
 import com.objis.cameroun.proxibanque.domaine.Client;
 import com.objis.cameroun.proxibanque.domaine.Role;
 import com.objis.cameroun.proxibanque.domaine.Utilisateur;
@@ -11,6 +13,7 @@ public interface IService {
 	
 	public int ajouterRoleService(Role role);
 	public int creerUtilisteurService(Utilisateur user);
+	public List<Utilisateur> listeUtilisateursService();
 	
 	// Service pour le Conseiller
 	public int creerClientService(Client cli);
